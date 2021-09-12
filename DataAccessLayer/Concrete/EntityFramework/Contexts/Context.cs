@@ -15,6 +15,7 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CoreBlogDb; Trusted_Connection=true");
         }
 
+        //DbSet
         public DbSet<About> Abouts{ get; set; }
         public DbSet<Blog> Blogs{ get; set; }
         public DbSet<Category> Categories{ get; set; }
