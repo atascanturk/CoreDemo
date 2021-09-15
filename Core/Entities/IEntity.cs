@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
+    //Tüm Entityler bu interface'den inherit edilir.
     public interface IEntity
     {
     }
