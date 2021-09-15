@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EntityLayer.Concrete
 {
-    public class Blog
+    public class Blog : IEntity
     {
         [Key]
         public int Id { get; set; }
@@ -17,5 +18,9 @@ namespace EntityLayer.Concrete
         public string Image { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool Status { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public List<Comment> Comments { get; set; }
+
     }
 }
