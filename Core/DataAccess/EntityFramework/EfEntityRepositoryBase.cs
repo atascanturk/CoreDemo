@@ -23,6 +23,16 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
+        public int Count(Expression<Func<TEntity, bool>> filter = null)
+        {
+            using (TContext context = new TContext())
+            {
+                return filter == null
+                   ? context.Set<TEntity>().Count()
+                   : context.Set<TEntity>().Where(filter).Count();
+            }
+        }
+
         public void Delete(TEntity entity)
         {
             using (TContext context = new TContext())
@@ -41,13 +51,26 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
+        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             using (TContext context = new TContext())
             {
-                return filter == null
-                    ? context.Set<TEntity>().ToList()
-                    : context.Set<TEntity>().Where(filter).ToList();
+                IQueryable<TEntity> query = context.Set<TEntity>();
+
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
+
+                if (includeProperties.Any())
+                {
+                    foreach (var includeProperty in includeProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
+
+                return query.ToList();
             }
         }
 

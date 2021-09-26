@@ -24,7 +24,7 @@
                             <ul class="blog-icons my-4">
                                 <li>
                                     <a href="#">
-                                        <i class="far fa-calendar-alt"></i> @blog.CreatedDate
+                                        <i class="far fa-calendar-alt"></i> @(((DateTime)(blog.CreatedDate)).ToString("dd-MMM-yyyy"))
                                     </a>
                                 </li>
                                 <li class="mx-2">
@@ -34,16 +34,16 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fas fa-eye"></i> 2000
+                                        <i class="fas fa-eye"></i> @blog.Category.Name
                                     </a>
                                 </li>
 
                             </ul>
                             <h5 class="card-title">
-                                <a href="single.html">@blog.Title</a>
+                                <a href="/Blog/BlogReadAll/@blog.Id">@blog.Title</a>
                             </h5>
-                            <p class="card-text mb-3">@blog.Content</p>
-                            <a href="single.html" class="btn btn-primary read-m">Read More</a>
+                            <p class="card-text mb-3">@(blog.Content.Count() <= 130 ? blog.Content :blog.Content.Substring(0,blog.Content.Substring(0,130).LastIndexOf(" ")))...</p>
+                            <a href="/Blog/BlogReadAll/@blog.Id" class="btn btn-primary read-m">Read More</a>
                         </div>
                     </div> 
                     <br />
