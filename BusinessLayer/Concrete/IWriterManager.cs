@@ -13,6 +13,12 @@ namespace BusinessLayer.Concrete
     public class IWriterManager : IWriterService
     {
         IWriterDal _writerDal;
+
+        public IWriterManager(IWriterDal writerDal)
+        {
+            _writerDal = writerDal;
+        }
+
         public void Add(Writer writer)
         {
             _writerDal.Add(writer);
