@@ -1,0 +1,97 @@
+﻿@model EntityLayer.Concrete.Writer
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">Hemen Kayıt Ol..</h3>
+        <div class="inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100">
+
+                @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                {
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">Ad Soyad</label>
+
+                            @Html.TextBoxFor(x=>x.Name, new { id = "validationDefault01", @class = "form-control" })
+                            @Html.ValidationMessageFor(x=>x.Name,"", new { @class = "text-danger" })
+                            @*<input type="text" class="form-control" id="validationDefault01" name="Name" placeholder="" required="">*@
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom02">Mail</label>
+                            @Html.TextBoxFor(x => x.Mail,new {id="validationDefault02", @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Mail, "", new { @class = "text-danger" })
+                            @*<input type="email" class="form-control" id="validationDefault02" name="Mail" placeholder="" required="">*@
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1 mb-2">Şifre</label>
+                            @Html.TextBoxFor(x => x.Password, new { id = "password1" , @class = "form-control", @type="password" })
+                            @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                            @*<input type="password" class="form-control" id="password1" name="Password" placeholder="" required="">*@
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword2 mb-2">Şifre Tekrar</label>                           
+                            <input type="password" class="form-control" id="password2" name="Password" placeholder="">
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-4">Kayıt Ol</button>
+                    <p>
+                        <a href="#">Tüm şartları okudum , kabul ediyorum.</a>
+                    </p>              
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+
+            $("button").click((e) => {
+                var password = $("#password1").val();
+                var passwordConfirm = $("#password2").val();
+                var name = $("#validationDefault01").val();
+                var email = $("#validationDefault02").val();
+               
+
+                if (password !== "" & passwordConfirm !== "" & email !== "" & name !=="") {
+                    e.preventDefault();
+                    console.log("else")
+
+                    if (password !== passwordConfirm)
+                        swal("Şifreler birbiri ile uyuşmuyor, lütfen kontrol edip tekrar deneyin.");
+
+                    else {
+                        if (passwordValidation(password)) {
+                            if (password != null & passwordConfirm != null & email != null & name != null & (password === passwordConfirm))
+                                swal("Tebrikler!", "Kaydınız başarıyla gerçekleştirildi", "success").then(() => {
+
+                                    $("button").unbind('click').click();
+                                });
+                        }
+
+                        else
+                            swal("Şifre en az 1 büyük harf, 1 küçük harf ve 1 rakam içermelidir.");
+
+                    }
+                }                  
+                
+            });
+
+            function passwordValidation(password) {
+                var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])");
+                return re.test(password);
+            }
+
+
+        })
+
+    </script>
+</section>
+
