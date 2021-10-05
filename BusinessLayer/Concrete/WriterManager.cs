@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-    public class IWriterManager : IWriterService
+    public class WriterManager : IWriterService
     {
         IWriterDal _writerDal;
 
-        public IWriterManager(IWriterDal writerDal)
+        public WriterManager(IWriterDal writerDal)
         {
             _writerDal = writerDal;
         }

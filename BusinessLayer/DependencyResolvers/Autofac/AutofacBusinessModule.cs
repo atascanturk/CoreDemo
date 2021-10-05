@@ -3,6 +3,7 @@ using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete.EntityFramework;
+using DataAccessLayer.Concrete.EntityFramework.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +32,11 @@ namespace BusinessLayer.DependencyResolvers.Autofac
             builder.RegisterType<ContactManager>().As<IContactService>().SingleInstance();
             builder.RegisterType<EfContactDal>().As<IContactDal>().SingleInstance();
 
-            builder.RegisterType<IWriterManager>().As<IWriterService>().SingleInstance();
+            builder.RegisterType<WriterManager>().As<IWriterService>().SingleInstance();
             builder.RegisterType<EfWriterDal>().As<IWriterDal>().SingleInstance();
+
+            builder.RegisterType<CityManager>().As<ICityService>().SingleInstance();
+            builder.RegisterType<EfCityDal>().As<ICityDal>().SingleInstance();
         }
     }
 }

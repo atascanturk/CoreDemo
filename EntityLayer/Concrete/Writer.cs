@@ -18,6 +18,7 @@ namespace EntityLayer.Concrete
         public string Mail  { get; set; }
         public string Password  { get; set; }
         public bool Status  { get; set; }
-        public List<Blog> Blogs { get; set; }
+        public int CityId  { get; set; }
+        public City City { get; set; }
     }
 }
