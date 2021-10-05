@@ -1,4 +1,5 @@
-﻿@model EntityLayer.Concrete.Writer
+﻿@using EntityLayer.Concrete
+@model EntityLayer.Concrete.Writer
 
 @{
     ViewData["Title"] = "Index";
@@ -18,13 +19,13 @@
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">Ad Soyad</label>
 
-                            @Html.TextBoxFor(x=>x.Name, new { id = "validationDefault01", @class = "form-control" })
-                            @Html.ValidationMessageFor(x=>x.Name,"", new { @class = "text-danger" })
+                            @Html.TextBoxFor(x => x.Name, new { id = "validationDefault01", @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
                             @*<input type="text" class="form-control" id="validationDefault01" name="Name" placeholder="" required="">*@
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="validationCustom02">Mail</label>
-                            @Html.TextBoxFor(x => x.Mail,new {id="validationDefault02", @class = "form-control" })
+                            <label for="validationCustom02">E-Posta</label>
+                            @Html.TextBoxFor(x => x.Mail, new { id = "validationDefault02", @class = "form-control" })
                             @Html.ValidationMessageFor(x => x.Mail, "", new { @class = "text-danger" })
                             @*<input type="email" class="form-control" id="validationDefault02" name="Mail" placeholder="" required="">*@
                         </div>
@@ -32,20 +33,31 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword1 mb-2">Şifre</label>
-                            @Html.TextBoxFor(x => x.Password, new { id = "password1" , @class = "form-control", @type="password" })
+                            @Html.TextBoxFor(x => x.Password, new { id = "password1", @class = "form-control", @type = "password" })
                             @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
                             @*<input type="password" class="form-control" id="password1" name="Password" placeholder="" required="">*@
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="exampleInputPassword2 mb-2">Şifre Tekrar</label>                           
+                            <label for="exampleInputPassword2 mb-2">Şifre Tekrar</label>
                             <input type="password" class="form-control" id="password2" name="Password" placeholder="">
                         </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1 mb-2">Şehir</label>
+                            @Html.DropDownListFor(x => x.CityId, (List<SelectListItem>)ViewBag.Cities, new { id = "city", @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.CityId, "", new { @class = "text-danger" })
+
+                        </div>
+                       
 
                     </div>
                     <button type="submit" class="btn btn-primary mb-4">Kayıt Ol</button>
                     <p>
                         <a href="#">Tüm şartları okudum , kabul ediyorum.</a>
-                    </p>              
+                    </p>
                 }
             </div>
         </div>
