@@ -37,6 +37,9 @@ namespace BusinessLayer.DependencyResolvers.Autofac
 
             builder.RegisterType<CityManager>().As<ICityService>().SingleInstance();
             builder.RegisterType<EfCityDal>().As<ICityDal>().SingleInstance();
+
+            builder.RegisterType<NewsManager>().As<INewsService>().SingleInstance();
+            builder.RegisterType<EfNewsDal>().As<INewsDal>().SingleInstance();
         }
     }
 }

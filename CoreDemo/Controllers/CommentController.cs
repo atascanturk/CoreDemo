@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,20 @@ namespace CoreDemo.Controllers
             return PartialView(comments);
         }
 
+        [HttpGet]
         public PartialViewResult CommentAddPartial()
         {
             
+            return PartialView();
+        }
+
+        [HttpPost]
+        public PartialViewResult CommentAddPartial(Comment comment)
+        {
+            comment.CreatedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            comment.Status = true;
+            comment.BlogId = 2;
+            _commentService.Add(comment);
             return PartialView();
         }
     }

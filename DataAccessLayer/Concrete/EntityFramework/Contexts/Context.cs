@@ -23,5 +23,6 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
         public DbSet<Contact> Contacts{ get; set; }
         public DbSet<Writer> Writers{ get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<News> News { get; set; }
     }
 }
