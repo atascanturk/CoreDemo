@@ -17,6 +17,8 @@ namespace BusinessLayer.ValidationRules
             RuleFor(x => x.Name).MaximumLength(50).WithMessage("Yazar Ad Soyad alanı maksimum 50 karakter olmalıdır");
             RuleFor(x => x.Mail).NotEmpty().WithMessage("Mail alanı boş geçilemez.");
             RuleFor(x => x.Password).NotEmpty().WithMessage("Şifre alanı boş geçilemez.");
+            RuleFor(x => x.Password).Matches(@"^[a-zA-Z0-9\-']*$").WithMessage("Şifre alanı minumum 1 büyük harf, 1 küçük harf ve 1 rakam içermelidir.");
+    
         }
     }
 }
