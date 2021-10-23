@@ -1,0 +1,57 @@
+﻿@model EntityLayer.Concrete.Blog
+
+@{
+    ViewData["Title"] = "BlogAdd";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+@using (Html.BeginForm("BlogAdd", "Blog", FormMethod.Post))
+{
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Blog Başlığı</label>
+
+            @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
+            @*<input type="text" class="form-control" id="validationDefault01" name="Name" placeholder="" required="">*@
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Blog Görseli</label>
+            @Html.TextBoxFor(x => x.Image, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Image, "", new { @class = "text-danger" })
+            @*<input type="email" class="form-control" id="validationDefault02" name="Mail" placeholder="" required="">*@
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Blog Küçük Görsel</label>
+            @Html.TextBoxFor(x => x.ThumbnailImage, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.ThumbnailImage, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Kategori</label>
+
+            @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.CategoryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-12 mb-3">
+            <label for="validationCustom02">Blog</label>
+            @Html.TextAreaFor(x => x.Content,20,10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Content, "", new { @class = "text-danger" })
+
+        </div>
+      
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-4">Blog Bırak</button>
+
+}
+
