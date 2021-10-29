@@ -1,0 +1,65 @@
+﻿@model CoreDemo.Models.BlogStatusUpdateViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Update", "Blog", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.Blog.WriterId, new { @class = "form-control" })
+    @Html.HiddenFor(x => x.Blog.Id, new { @class = "form-control" })
+
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Blog Başlığı</label>
+
+            @Html.TextBoxFor(x => x.Blog.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Blog.Title, "", new { @class = "text-danger" })
+            @*<input type="text" class="form-control" id="validationDefault01" name="Name" placeholder="" required="">*@
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Blog Görseli</label>
+            @Html.TextBoxFor(x => x.Blog.Image, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Blog.Image, "", new { @class = "text-danger" })
+            @*<input type="email" class="form-control" id="validationDefault02" name="Mail" placeholder="" required="">*@
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Blog Küçük Görsel</label>
+            @Html.TextBoxFor(x => x.Blog.ThumbnailImage, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Blog.ThumbnailImage, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Kategori</label>
+
+            @Html.DropDownListFor(x => x.Blog.CategoryId, (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Blog.CategoryId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Durum</label>
+            @Html.DropDownListFor(x => x.SelectedStatus, (List<SelectListItem>)ViewBag.Status, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-12 mb-3">
+            <label for="validationCustom02">Blog</label>
+            @Html.TextAreaFor(x => x.Blog.Content, 20, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Blog.Content, "", new { @class = "text-danger" })
+
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-4">Blog Bırak</button>
+
+}

@@ -36,7 +36,7 @@ namespace BusinessLayer.Concrete
 
         public List<Blog> GetAll(Expression<Func<Blog, bool>> filter = null)
         {
-            return _blogDal.GetAll(filter,x=>x.Category);
+            return _blogDal.GetAll(filter,x=>x.Category,x=>x.Writer);
         }
 
         public void Update(Blog blog)

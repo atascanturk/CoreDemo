@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.ValidationRules;
+using CoreDemo.Models;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
@@ -87,6 +88,55 @@ namespace CoreDemo.Controllers
             }
 
             return View();
+        }
+        [AllowAnonymous]
+        public IActionResult Delete(int id)
+        {
+            var blog = _blogService.Get(x => x.Id == id);
+            _blogService.Delete(blog);
+            return RedirectToAction("BlogListByWriter");
+        }
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            List<SelectListItem> categories = (from x in _categoryService.GetAll()
+                                               select new SelectListItem
+                                               {
+                                                   Text = x.Name,
+                                                   Value = x.Id.ToString(),
+
+                                               }).ToList();
+            ViewBag.Categories = categories;
+
+            List<SelectListItem> status = new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Aktif" , Value = "1"},
+                new SelectListItem {Text = "Pasif" , Value = "0"}
+
+            };
+
+            ViewBag.Status = status;
+        
+                                               
+            ViewBag.Categories = categories;
+
+            var blog = _blogService.Get(x => x.Id == id);
+
+            BlogStatusUpdateViewModel blogStatusUpdateView = new BlogStatusUpdateViewModel();
+            blogStatusUpdateView.Blog = blog;
+
+            return View(blogStatusUpdateView);
+        }
+
+        [HttpPost]
+        public IActionResult Update(BlogStatusUpdateViewModel blogStatusUpdateViewModel)
+        {
+            blogStatusUpdateViewModel.Blog.Status = Convert.ToBoolean(blogStatusUpdateViewModel.SelectedStatus);
+            Blog blog = new Blog();
+            blog = blogStatusUpdateViewModel.Blog;
+            _blogService.Update(blog);
+            return RedirectToAction("BlogListByWriter");
         }
     }
 }
