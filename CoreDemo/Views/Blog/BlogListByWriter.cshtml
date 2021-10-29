@@ -6,35 +6,36 @@
 }
 
 <h1>Yazarın Blogları</h1>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Başlık</th>
+            <th>Oluşturulma Tarihi</th>
+            <th>Kategori</th>
+            <th>Durum</th>
+            <th>Sil</th>
+            <th>Düzenle</th>
+            <th></th>
+        </tr>
+        @{var i = 1; }
+        @foreach (var item in Model)
+        {
 
-<table class="table table-hover">
-    <tr>
-        <th>#</th>
-        <th>Başlık</th>
-        <th>Oluşturulma Tarihi</th>
-        <th>Kategori</th>
-        <th>Durum</th>
-        <th>Sil</th>
-        <th>Düzenle</th>
-        <th></th>
-    </tr>
-    @{var i = 1; }
-    @foreach (var item in Model)
-    {
+            <tr>
+                <td>@i</td>
+                <td>@item.Title</td>
+                <td>@item.CreatedDate</td>
+                <td>@item.Category.Name</td>
+                <td>@(item.Status == true ? "Aktif" : "Pasif")</td>
+                <td><a href="/Blog/Delete/@item.Id" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Blog/Update/@item.Id" class="btn btn-warning">Düzenle</a></td>
+            </tr>
+            i++;
+        }
+    </table>
 
-<tr>
-    <td>@i</td>
-    <td>@item.Title</td>
-    <td>@item.CreatedDate</td>
-    <td>@item.Category.Name</td>
-    <td>@(item.Status==true? "Aktif" : "Pasif")</td>
-    <td><a href="#" class="btn btn-danger">Sil</a></td>
-    <td><a href="#" class="btn btn-warning">Düzenle</a></td>
+    <a href="/Blog/BlogAdd" class="btn btn-primary">Yeni Blog Oluştur</a>
+   
 
-</tr>
-        i++;
-    }
-</table>
-
-<a href="/Blog/BlogAdd" class="btn btn-primary">Yeni Blog Oluştur</a>
-
+        
