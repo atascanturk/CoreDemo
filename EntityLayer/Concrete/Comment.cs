@@ -15,6 +15,7 @@ namespace EntityLayer.Concrete
         public string UserName { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public int BlogScore { get; set; }
         public DateTime CreatedDate  { get; set; }
         public bool Status { get; set; }
         public int BlogId { get; set; }
