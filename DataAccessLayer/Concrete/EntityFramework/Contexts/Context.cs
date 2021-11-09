@@ -25,5 +25,7 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
         public DbSet<City> Cities { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<BlogRate> BlogRates { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

@@ -40,6 +40,12 @@ namespace BusinessLayer.DependencyResolvers.Autofac
 
             builder.RegisterType<NewsManager>().As<INewsService>().SingleInstance();
             builder.RegisterType<EfNewsDal>().As<INewsDal>().SingleInstance();
+
+            builder.RegisterType<NotificationManager>().As<INotificationService>().SingleInstance();
+            builder.RegisterType<EfNotificationDal>().As<INotificationDal>().SingleInstance();
+
+            builder.RegisterType<MessageManager>().As<IMessageService>().SingleInstance();
+            builder.RegisterType<EfMessageDal>().As<IMessageDal>().SingleInstance();
         }
     }
 }
