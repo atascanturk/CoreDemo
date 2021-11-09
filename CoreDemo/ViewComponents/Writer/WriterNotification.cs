@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLayer.Abstract;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,17 @@ namespace CoreDemo.ViewComponents.Writer
 {
     public class WriterNotification :ViewComponent
     {
+        INotificationService _notificationService;
+
+        public WriterNotification(INotificationService notificationService)
+        {
+            _notificationService = notificationService;
+        }
+
         public IViewComponentResult Invoke()
         {
-            return View();
+            var notifications = _notificationService.GetAll();
+            return View(notifications);
         }
     }
 }
