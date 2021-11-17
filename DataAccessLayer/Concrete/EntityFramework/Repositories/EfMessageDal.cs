@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Concrete.EntityFramework.Repositories
 {
-    public class EfMessageDal :EfEntityRepositoryBase<Message,Context> ,IMessageDal
+    public class EfMessageDal :EfEntityRepositoryBase<Message2,Context> ,IMessageDal
     {
     }
 }

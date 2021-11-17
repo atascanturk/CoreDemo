@@ -18,8 +18,8 @@ namespace CoreDemo.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            string receiver = "atascanturk@gmail.com";
-            var messages = _messageService.GetAll(x => x.Receiver == receiver);
+           
+            var messages = _messageService.GetAll(x => x.ReceiverId == 33);
             return View(messages);
         }
     }

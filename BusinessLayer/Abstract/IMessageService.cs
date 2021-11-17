@@ -10,10 +10,10 @@ namespace BusinessLayer.Abstract
 {
     public interface IMessageService
     {
-        List<Message> GetAll(Expression<Func<Message, bool>> filter = null);
-        Message Get(Expression<Func<Message, bool>> filter);
-        void Add(Message message);
-        void Update(Message message);
-        void Delete(Message message);
+        List<Message2> GetAll(Expression<Func<Message2, bool>> filter = null);
+        Message2 Get(Expression<Func<Message2, bool>> filter);
+        void Add(Message2 message);
+        void Update(Message2 message);
+        void Delete(Message2 message);
     }
 }
