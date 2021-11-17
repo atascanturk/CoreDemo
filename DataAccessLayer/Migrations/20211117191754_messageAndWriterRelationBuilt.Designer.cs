@@ -4,14 +4,16 @@ using DataAccessLayer.Concrete.EntityFramework.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20211117191754_messageAndWriterRelationBuilt")]
+    partial class messageAndWriterRelationBuilt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -211,6 +213,64 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.Match", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("GuestTeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HomeTeamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MatchDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Stadium")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuestTeamId");
+
+                    b.HasIndex("HomeTeamId");
+
+                    b.ToTable("Matches");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Receiver")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("EntityLayer.Concrete.Message2", b =>
                 {
                     b.Property<int>("Id")
@@ -242,7 +302,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Message2");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.News", b =>
@@ -291,6 +351,21 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TeamName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Writer", b =>
@@ -358,6 +433,21 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Blog");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.Match", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.Team", "GuestTeam")
+                        .WithMany("AwayMatches")
+                        .HasForeignKey("GuestTeamId");
+
+                    b.HasOne("EntityLayer.Concrete.Team", "HomeTeam")
+                        .WithMany("HomeMatches")
+                        .HasForeignKey("HomeTeamId");
+
+                    b.Navigation("GuestTeam");
+
+                    b.Navigation("HomeTeam");
+                });
+
             modelBuilder.Entity("EntityLayer.Concrete.Message2", b =>
                 {
                     b.HasOne("EntityLayer.Concrete.Writer", "Receiver")
@@ -392,6 +482,13 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
                     b.Navigation("Blogs");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Team", b =>
+                {
+                    b.Navigation("AwayMatches");
+
+                    b.Navigation("HomeMatches");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Writer", b =>

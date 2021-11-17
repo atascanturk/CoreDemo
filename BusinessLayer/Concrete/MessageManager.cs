@@ -19,27 +19,27 @@ namespace BusinessLayer.Concrete
             _messageDal = messageDal;
         }
 
-        public void Add(Message message)
+        public void Add(Message2 message)
         {
             _messageDal.Add(message);
         }
 
-        public void Delete(Message message)
+        public void Delete(Message2 message)
         {
             _messageDal.Delete(message);
         }
 
-        public Message Get(Expression<Func<Message, bool>> filter)
+        public Message2 Get(Expression<Func<Message2, bool>> filter)
         {
            return _messageDal.Get(filter);
         }
 
-        public List<Message> GetAll(Expression<Func<Message, bool>> filter = null)
+        public List<Message2> GetAll(Expression<Func<Message2, bool>> filter = null)
         {
             return _messageDal.GetAll(filter);
         }
 
-        public void Update(Message message)
+        public void Update(Message2 message)
         {
             _messageDal.Update(message);
         }
