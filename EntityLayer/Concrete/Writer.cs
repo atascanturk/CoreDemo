@@ -20,5 +20,8 @@ namespace EntityLayer.Concrete
         public bool Status  { get; set; }
         public int CityId  { get; set; }
         public City City { get; set; }
+        public List<Blog> Blogs { get; set; }       
+        public virtual ICollection<Message2> SentMessages { get; set; }
+        public virtual ICollection<Message2> ReceivedMessages { get; set; }
     }
 }
