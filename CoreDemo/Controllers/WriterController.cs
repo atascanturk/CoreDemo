@@ -26,8 +26,14 @@ namespace CoreDemo.Controllers
             _cityService = cityService;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
+            var usermail = User.Identity.Name;
+            ViewBag.Mail = usermail;
+            var writer = _writerService.Get(x => x.Mail == usermail);
+            ViewBag.WriterName = writer.Name;
+
             return View();
         }
 
@@ -49,7 +55,8 @@ namespace CoreDemo.Controllers
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var writer = _writerService.Get(x => x.Id == 33);
+            var usermail = User.Identity.Name;
+            var writer = _writerService.Get(x => x.Mail == usermail);
             return View(writer);
         }
 

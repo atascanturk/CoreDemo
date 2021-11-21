@@ -13,16 +13,18 @@ using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
 {
-    [AllowAnonymous]
+    
     public class BlogController : Controller
     {
         IBlogService _blogService;
         ICategoryService _categoryService;
+        IWriterService _writerService;
 
-        public BlogController(IBlogService blogService, ICategoryService categoryService)
+        public BlogController(IBlogService blogService, ICategoryService categoryService, IWriterService writerService)
         {
             _blogService = blogService;
             _categoryService = categoryService;
+            _writerService = writerService;
         }
 
         public IActionResult Index()
@@ -39,17 +41,18 @@ namespace CoreDemo.Controllers
 
         [AllowAnonymous]
         public IActionResult Test()
-        {            
+        {
             return View();
         }
-        [AllowAnonymous]
+       
         public IActionResult BlogListByWriter()
         {
-            var blogs = _blogService.GetAll(x => x.WriterId == 33);
+            var usermail = User.Identity.Name;
+            var blogs = _blogService.GetAll(x => x.Writer.Mail == usermail);
             return View(blogs);
         }
 
-        [AllowAnonymous]
+        
         [HttpGet]
         public IActionResult BlogAdd()
         {
@@ -64,7 +67,7 @@ namespace CoreDemo.Controllers
             return View();
         }
 
-        [AllowAnonymous]
+        
         [HttpPost]
         public IActionResult BlogAdd(Blog blog)
         {
@@ -72,12 +75,14 @@ namespace CoreDemo.Controllers
             ValidationResult results = validationRules.Validate(blog);
             if (results.IsValid)
             {
+                var usermail = User.Identity.Name;
+                var writer = _writerService.Get(x => x.Mail == usermail);
                 blog.Status = true;
                 blog.CreatedDate = DateTime.Now;
-                blog.WriterId = 33;
+                blog.WriterId = writer.Id;
                 _blogService.Add(blog);
                 return RedirectToAction("BlogListByWriter", "Blog");
-                
+
             }
             else
             {
@@ -89,7 +94,7 @@ namespace CoreDemo.Controllers
 
             return View();
         }
-        [AllowAnonymous]
+       
         public IActionResult Delete(int id)
         {
             var blog = _blogService.Get(x => x.Id == id);
@@ -117,10 +122,10 @@ namespace CoreDemo.Controllers
             };
 
             ViewBag.Status = status;
-        
-                                               
-            ViewBag.Categories = categories;
 
+
+            ViewBag.Categories = categories;
+           
             var blog = _blogService.Get(x => x.Id == id);
 
             BlogStatusUpdateViewModel blogStatusUpdateView = new BlogStatusUpdateViewModel();

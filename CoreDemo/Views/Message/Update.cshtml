@@ -1,0 +1,27 @@
+﻿@model EntityLayer.Concrete.Message2
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+
+
+<div class="form-row">
+    <div class="col-md-6 mb-3">
+        <label for="validationCustom01">Mesaj Başlığı</label>
+
+        @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" ,disabled= "disabled"})
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-6 mb-3">
+        <label for="validationCustom01">Mesaj İçeriği</label>
+
+        @Html.TextAreaFor(x => x.Content, new { @class = "form-control" ,disabled="disabled"})
+    </div>
+</div>
+
+
+<button class="btn btn-success">Mesajlara Dön</button>
