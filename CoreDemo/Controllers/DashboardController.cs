@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         ICategoryService _categoryService;
@@ -19,11 +20,14 @@ namespace CoreDemo.Controllers
             _blogService = blogService;
         }
 
-        [AllowAnonymous]
+       
         public IActionResult Index()
         {
+
+            var usermail = User.Identity.Name;
+            ViewBag.Mail = usermail;
             ViewBag.BlogCount = _blogService.GetAll().Count;
-            ViewBag.WriterBlogCount = _blogService.GetAll(x => x.WriterId == 33).Count;
+            ViewBag.WriterBlogCount = _blogService.GetAll(x => x.Writer.Mail == usermail).Count;
             ViewBag.CategoryCount = _categoryService.GetAll().Count;
 
             return View();

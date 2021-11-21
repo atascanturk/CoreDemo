@@ -36,7 +36,7 @@ namespace BusinessLayer.Concrete
 
         public List<Message2> GetAll(Expression<Func<Message2, bool>> filter = null)
         {
-            return _messageDal.GetAll(filter);
+            return _messageDal.GetAll(filter,x=>x.Receiver,x=>x.Sender);
         }
 
         public void Update(Message2 message)
