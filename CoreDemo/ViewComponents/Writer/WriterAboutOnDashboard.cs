@@ -18,7 +18,8 @@ namespace CoreDemo.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            var writer = _writerService.Get(x => x.Id == 33);
+            var usermail = User.Identity.Name;
+            var writer = _writerService.Get(x => x.Mail == usermail);
             return View(writer);
         }
     }
