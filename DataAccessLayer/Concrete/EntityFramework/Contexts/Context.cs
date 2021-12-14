@@ -34,6 +34,7 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
         public DbSet<BlogRate> BlogRates { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Message2> Messages { get; set; }
+        public DbSet<Admin> Admins { get; set; }
  
     }
 }
