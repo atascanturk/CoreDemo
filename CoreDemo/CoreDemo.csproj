@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Test\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Test\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Test\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="FluentValidation" Version="10.3.3" />
@@ -27,9 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Test\Controllers\" />
-    <Folder Include="Areas\Test\Views\" />
     <Folder Include="wwwroot\WriterProfileImage\" />
   </ItemGroup>
 
