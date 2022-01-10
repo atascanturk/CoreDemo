@@ -7,6 +7,8 @@
 <h1>Index</h1>
 <button type="button" id="btnGetList" class=" btn btn-outline-primary">Yazar Listesi</button>
 <button type="button" id="btnGetById" class=" btn btn-outline-success">Yazar Getir</button>
+<button type="button" id="btnAddWriter" class=" btn btn-outline-info">Yazar Ekle</button>
+<button type="button" id="btnDeleteWriter" class=" btn btn-outline-danger">Yazar Sil</button>
 
 <br />
 
@@ -15,6 +17,15 @@
 <br />
 <div>
     <input type="text" id="writerId" placeholder="Yazar Id değerini girin" class="form-control"/>
+</div>
+<br />
+<div>
+    <input type="text" class="form-control" id="txtWriterId" placeholder="Yazar ID"/>    
+    <input type="text" class="form-control" id="txtWriterName" placeholder="Yazar Adı"/>
+</div>
+<br />
+<div>
+    <input type="text" id="toBeDeletedWriterId" placeholder="Silinecek Yazar Id değerini girin" class="form-control" />
 </div>
 
 @section Scripts{
@@ -29,11 +40,12 @@
             url: "/Admin/Writer/WriterList",
             success: (resp) => {
                 let writers = jQuery.parseJSON(resp);
-                let tableHtml = "<table class=table table-bordered> <tr> <th>Yazar ID<th> Yazar Adı </tr>"
+                let tableHtml = "<table class='table table-bordered'> <tr> <th>Yazar ID<th> Yazar Adı </tr>"
                 $.each(writers, (i, v) => {
-                    tableHtml += `<tr><td>${v.Id}</td><td>${v.Name}</td></tr></table>`
+                    tableHtml += `<tr><td>${v.Id}</td><td>${v.Name}</td></tr>`
                 });
 
+                tableHtml += "</table>";
                 $('#writerList').html(tableHtml)
             }
         })
@@ -49,10 +61,47 @@
             data: { id: Id },
             success: (res) => {
                 console.log(res);
+                let writer= jQuery.parseJSON(res)
+                let getValue = `<table class='table table-bordered'> <tr><th>YazarID</th><th>Yazar Adı</th></tr> <tr><td>${writer.Id}</td><td>${writer.Name}</td></tr></table>`
+
+                $('#writerGet').html(getValue)
             }
         })
         
 
+    })
+
+    $('#btnAddWriter').click(() => {
+        let writer = {
+            Id: $('#txtWriterId').val(),
+            Name: $('#txtWriterName').val()
+        };
+
+        $.ajax({
+
+            type: "post",
+            url: "/Admin/Writer/AddWriter",
+            data: writer,
+            success: (resp) => {
+                let result = jQuery.parseJSON(resp);
+                alert("Yazar Başarıyla Eklendi.")
+            }
+        })
+
+    })
+
+    $('#btnDeleteWriter').click(() => {
+
+        let id = $('#toBeDeletedWriterId').val();
+        $.ajax({
+
+            type: "post",
+            url: "/Admin/Writer/DeleteWriter/" +id,
+            dataType: "json",
+            success: (resp) => {
+                alert("Yazar Başarıyla Silindi.")
+            }
+        })
     })
 </script>
 
