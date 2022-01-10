@@ -30,15 +30,36 @@ namespace CoreDemo.Areas.Admin.Controllers
             var writer = _writerService.Get(x => x.Id == Id);
             var jsonWriters = JsonConvert.SerializeObject(writer);
             return Json(jsonWriters);
-            
+
         }
 
         public IActionResult WriterList()
         {
-            var writers = new List<Writer>();
-            writers.Add(new Writer { Mail = "Test", Name = "Test" });
+            var writers = writerList;
             var jsonWriters = JsonConvert.SerializeObject(writers);
             return Json(jsonWriters);
         }
+
+        [HttpPost]
+        public IActionResult AddWriter(Writer writer)
+        {
+            writerList.Add(writer);
+            var jsonWriters = JsonConvert.SerializeObject(writer);
+            return Json(jsonWriters);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteWriter(int id)
+        {
+            var writer= writerList.FirstOrDefault(x => x.Id == id);
+            writerList.Remove(writer);
+            var jsonWriters = JsonConvert.SerializeObject(writer);
+            return Json(jsonWriters);
+        }
+
+        private static List<Writer> writerList = new List<Writer>{
+
+            new Writer {Id=1,Name="Test"}
+            };
     }
 }
